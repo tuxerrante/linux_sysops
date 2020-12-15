@@ -34,7 +34,10 @@ SyslogFacility AUTHPRIV
 # Authentication:
 
 LoginGraceTime 1m
-PermitRootLogin prohibit-password
+
+# Enable this after your ssh key based access works 
+##### PermitRootLogin prohibit-password
+
 #StrictModes yes
 #MaxAuthTries 6
 MaxSessions 10

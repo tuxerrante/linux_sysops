@@ -1,0 +1,44 @@
+# /etc/my.cnf
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+[mysqld]
+
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+#log_bin
+
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+
+datadir=MYSQL_DATA_PATH
+
+log-error=MYSQL_LOG_PATH/mysqld.log
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+socket=/var/run/mysqld/mysql.sock
+
+pid-file=/var/run/mysqld/mysqld.pid
+
+innodb_log_file_size=128M
+
+character-set-server=utf8
+
+explicit_defaults_for_timestamp = 1
+
+# default-storage-engine=INNODB
+# sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+innodb_buffer_pool_size=4G
+max_connections=200
+max_allowed_packet=256M
+
+## security
+ssl_ca=MYSQL_CERT_PATH/app-CA-cert.pem
+ssl_cert=MYSQL_CERT_PATH/app-mysql-cert.pem
+ssl_key=MYSQL_CERT_PATH/app-mysql-key.pem
+require_secure_transport=ON

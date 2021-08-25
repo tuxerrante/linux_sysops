@@ -19,7 +19,7 @@ dockerd-rootless-setuptool.sh install
 
 ### Vim enhances
 ```
-echo <<EOF >>$HOME/.vimrc
+cat <<EOF >>$HOME/.vimrc
 set si
 set ai
 syntax enable
@@ -33,7 +33,8 @@ EOF
 ```  
 
 ### Kubernetes 
-see [Multipass](https://multipass.run/)
+see [Multipass](https://multipass.run/)  
+
 https://medium.com/platformer-blog/kubernetes-multi-node-cluster-with-multipass-on-ubuntu-18-04-desktop-f80b92b1c6a7
 
 

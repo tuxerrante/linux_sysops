@@ -3,6 +3,8 @@
 
 windows_user_name="alessandro.affinito"
 
+apt-get update
+apt-get install -y bash-completion git gnupg software-properties-common curl jq
 
 ###KUBECTL
 export KUBECONFIG="/mnt/c/Users/${windows_user_name}/.kube/config"
@@ -30,12 +32,34 @@ git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 ### TERRAFORM
-apt-get update && sudo apt-get install -y gnupg software-properties-common curl
 apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 apt-get update && sudo apt-get install terraform
 
+### NVM
+nvm_latest=$(curl -Ls https://raw.githubusercontent.com/nvm-sh/nvm/master/package.json |jq --raw-output '.version')
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${nvm_latest}/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+nvm install 'lts/*'
+
+### BASHRC
+cat <<EOT >>~/.bashrc 
+source <(kubectl completion bash)
+source <(helm completion bash)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_complete
+
+complete -C /usr/bin/terraform terraform
+
+alias workspace="cd /mnt/c/Users/${windows_user_name}/workspace/"
+
+eval "$(starship init bash)"
+EOT
+
 ### DOCKER
+echo
 echo "> In docker engine go to settings -> resources -> wsl integration -> enable Ubuntu"
 
-
-
+echo
